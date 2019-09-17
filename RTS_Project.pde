@@ -2,7 +2,7 @@ ArrayList<Unit> units = new ArrayList<Unit>();
 Selecter selecter;
 
 void setup() {
-  fullScreen();
+  size(500, 800);
   background(255);
   units.add(new Unit(new PVector(height/2, width/2)));
   selecter = new Selecter();

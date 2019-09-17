@@ -12,9 +12,11 @@ class Unit {
   
   void update() {
     velocity = PVector.sub(target, location);
-    velocity.normalize();
-    velocity.mult(speed);
-    location.add(velocity);
+    if(velocity.mag() > 5) {
+      velocity.normalize();
+      velocity.mult(speed);
+      location.add(velocity);
+    }
   }
   
   void display() {

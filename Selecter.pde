@@ -2,7 +2,7 @@ class Selecter {
   PVector start;
   
   Selecter() {
-    
+    setStart(new PVector(mouseX, mouseY));
   }
   
   void display() {
