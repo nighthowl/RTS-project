@@ -1,3 +1,5 @@
+import shiffman.box2d.*;
+
 ArrayList<Unit> units = new ArrayList<Unit>();
 Selecter selecter;
 
@@ -12,8 +14,9 @@ void draw() {
   background(255);
   units.get(0).update();
   units.get(0).display();
-  if(mousePressed) {
+  if(mousePressed && mouseButton == LEFT) {
     selecter.display();
+    selecter.setUnitsActive(units);
   }
 }
 
@@ -22,9 +25,13 @@ void mousePressed() {
     selecter.setStart(new PVector(mouseX, mouseY));
   }
 }
-  
+
 void mouseClicked() {
   if(mouseButton == RIGHT) {
-    units.get(0).setTarget(new PVector(mouseX, mouseY));
+    for(Unit i : units) {
+      if(i.selected) {
+        i.setTarget(new PVector(mouseX, mouseY));
+      }
+    }
   }
 }

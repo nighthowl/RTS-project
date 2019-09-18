@@ -1,7 +1,7 @@
 class Unit {
   PVector location, target, velocity;
   int speed;
-  boolean selected;
+  public boolean selected;
   
   Unit(PVector _loc) {
     location = _loc;
