@@ -22,11 +22,12 @@ class Selecter {
     start = _start;
   }
   
-  void setUnitsActive(ArrayList<Unit> _units) {
+  void setActiveUnits(ArrayList<Unit> _units) {
     for(Unit i : _units) {
-      if() {
-        
-      }
+      if(Math.pow(i.getLoc().x - constrain(i.getLoc().x, min(start.x, mouseX), max(start.x, mouseX)), 2)
+      + Math.pow(i.getLoc().y - constrain(i.getLoc().y, min(start.y, mouseY), max(start.y, mouseY)), 2) < Math.pow(i.size/2, 2)) {
+        i.selected = true;
+      } else i.selected = false;
     }
   }
 }

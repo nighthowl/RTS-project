@@ -1,6 +1,6 @@
 class Unit {
   PVector location, target, velocity;
-  int speed;
+  public int speed, size;
   public boolean selected;
   
   Unit(PVector _loc) {
@@ -8,11 +8,12 @@ class Unit {
     target = location;
     selected = false;
     speed = 5;
+    size = 50;
   }
   
   void update() {
     velocity = PVector.sub(target, location);
-    if(velocity.mag() > 5) {
+    if(velocity.mag() > 3) {
       velocity.normalize();
       velocity.mult(speed);
       location.add(velocity);
@@ -21,12 +22,17 @@ class Unit {
   
   void display() {
     fill(0);
+    if(selected) fill(37, 89, 36);
     noStroke();
-    ellipse(location.x, location.y, 50, 50);
+    ellipse(location.x, location.y, size, size);
   }
   
   void setTarget(PVector _target) {
     target = _target;
+  }
+  
+  public PVector getLoc() {
+    return location;
   }
   
 }

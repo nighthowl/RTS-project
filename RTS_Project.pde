@@ -6,17 +6,25 @@ Selecter selecter;
 void setup() {
   size(500, 800);
   background(255);
-  units.add(new Unit(new PVector(height/2, width/2)));
+  for(int i = 0; i < 5; i++)
+    units.add(new Unit(new PVector(random(0, width), random(0, height))));
   selecter = new Selecter();
 }
 
 void draw() {
   background(255);
-  units.get(0).update();
-  units.get(0).display();
+  for(Unit i : units) {
+    i.update();
+    i.display();
+  }
   if(mousePressed && mouseButton == LEFT) {
     selecter.display();
-    selecter.setUnitsActive(units);
+  }
+}
+
+void mouseReleased() {
+  if(mouseButton == LEFT) {
+    selecter.setActiveUnits(units);
   }
 }
 
