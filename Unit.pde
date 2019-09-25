@@ -35,4 +35,38 @@ class Unit {
     return location;
   }
   
+  void checkCollision(Unit other) {
+    PVector dist = PVector.sub(other.location, location);
+    if(dist.mag() < size) {
+      if(isGroupTouchingTarget(new ArrayList<Unit>())) {
+        target = location;
+      }
+      //PVector correction = dist.normalize().mult(min(5, 5/dist.mag()));
+      //location.sub(correction);
+      //other.location.add(correction);
+    }
+  }
+  
+  boolean isGroupTouchingTarget(ArrayList<Unit> _parents) {
+    boolean output = false;
+    ArrayList<Unit> parents = new ArrayList<Unit>();
+    parents.addAll(_parents);
+    if(abs(PVector.sub(location, target).mag()) < size/2) {
+      return true;
+    } else {
+      for(Unit i : units) {
+        if(this != i && parents.contains(i)) {
+          System.out.println(this);
+          if(abs(PVector.sub(location, i.location).mag()) < size) {
+            parents.add(this);
+            if(i.isGroupTouchingTarget(parents)) {
+              output = true;
+            }
+          }
+        }
+      }
+    }
+    return output;
+  }
+  
 }

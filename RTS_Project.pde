@@ -1,10 +1,8 @@
-import shiffman.box2d.*;
-
-ArrayList<Unit> units = new ArrayList<Unit>();
+public ArrayList<Unit> units = new ArrayList<Unit>();
 Selecter selecter;
 
 void setup() {
-  size(500, 800);
+  size(800, 800);
   background(255);
   for(int i = 0; i < 5; i++)
     units.add(new Unit(new PVector(random(0, width), random(0, height))));
@@ -16,6 +14,11 @@ void draw() {
   for(Unit i : units) {
     i.update();
     i.display();
+    for(Unit j : units) {
+      if(i != j) {
+        i.checkCollision(j);
+      }
+    }
   }
   if(mousePressed && mouseButton == LEFT) {
     selecter.display();
