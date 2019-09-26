@@ -40,10 +40,14 @@ class Unit {
     if(dist.mag() < size) {
       if(isGroupTouchingTarget(new ArrayList<Unit>())) {
         target = location;
+      } else if(other.location != other.target) {
+        PVector correction = dist.normalize().mult(min(speed, speed/dist.mag()));
+        location.sub(correction);
+        other.location.add(correction);
+      } else {
+        PVector correction = dist.normalize().mult(min(speed, speed/dist.mag()));
+        location.sub(correction.mult(2));
       }
-      //PVector correction = dist.normalize().mult(min(5, 5/dist.mag()));
-      //location.sub(correction);
-      //other.location.add(correction);
     }
   }
   
@@ -51,13 +55,13 @@ class Unit {
     boolean output = false;
     ArrayList<Unit> parents = new ArrayList<Unit>();
     parents.addAll(_parents);
-    if(abs(PVector.sub(location, target).mag()) < size/2) {
-      return true;
+    if(abs(PVector.sub(location, target).mag()) < size/2 + 5) {
+      output = true;
     } else {
       for(Unit i : units) {
         if(this != i && parents.contains(i)) {
           System.out.println(this);
-          if(abs(PVector.sub(location, i.location).mag()) < size) {
+          if(abs(PVector.sub(location, i.location).mag()) < size + 5) {
             parents.add(this);
             if(i.isGroupTouchingTarget(parents)) {
               output = true;
@@ -66,6 +70,7 @@ class Unit {
         }
       }
     }
+    System.out.println(output);
     return output;
   }
   
